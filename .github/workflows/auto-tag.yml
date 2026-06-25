@@ -1,0 +1,31 @@
+name: Auto-tag release
+on:
+  push:
+    branches:
+      - main
+      - 'v[0-9]*.[0-9]*'
+env:
+  MAIN_LINE: v5.0
+jobs:
+  tag:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Compute next tag for this branch's line
+        id: next
+        run: |
+          BRANCH="${GITHUB_REF_NAME}"
+          if [ "$BRANCH" = "main" ]; then LINE="${MAIN_LINE}"; else LINE="$BRANCH"; fi
+          LATEST=$(git tag --list "${LINE}.*" | sort -V | tail -1)
+          if [ -z "$LATEST" ]; then NEXT="${LINE}.0"; else NEXT="${LINE}.$(( ${LATEST##*.} + 1 ))"; fi
+          echo "next=$NEXT" >> "$GITHUB_OUTPUT"
+      - name: Create and push tag
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git tag "${{ steps.next.outputs.next }}"
+          git push origin "${{ steps.next.outputs.next }}"
