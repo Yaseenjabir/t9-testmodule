@@ -1,6 +1,6 @@
 <?php
-  $version = $this->version;
-  $line = preg_replace('/^(v\d+\.\d+).*$/', '$1', $version);
+$version = $this->version;
+$line = preg_replace('/^(v\d+\.\d+).*$/', '$1', $version);
 ?>
 <div style="font-family:-apple-system,'Segoe UI',Roboto,sans-serif;padding:28px;max-width:1000px;color:#1a1a2e;">
 
@@ -10,6 +10,7 @@
     <div>
       <h1 style="margin:0;font-size:23px;font-weight:800;">Trace9 Test Module</h1>
       <p style="margin:5px 0 0;opacity:.85;font-size:13px;">Deployed by the Patch Manager &mdash; verify install / update / rollback</p>
+      <h1>These are only changes for v4.5</h1>
     </div>
     <div style="margin-left:auto;text-align:right;">
       <div style="font-size:11px;text-transform:uppercase;letter-spacing:.06em;opacity:.85;">Running version</div>
@@ -20,12 +21,12 @@
   <!-- stat cards -->
   <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:20px;">
     <?php
-      $cards = [
-        ['Status',       'Healthy',      '#16a34a'],
-        ['Version line', $line,          '#7c3aed'],
-        ['Source',       'GitHub tag',   '#8b5cf6'],
-      ];
-      foreach ($cards as $c):
+    $cards = [
+      ['Status',       'Healthy',      '#16a34a'],
+      ['Version line', $line,          '#7c3aed'],
+      ['Source',       'GitHub tag',   '#8b5cf6'],
+    ];
+    foreach ($cards as $c):
     ?>
       <div style="background:#faf8ff;border:1px solid #e4d9fb;border-radius:14px;padding:16px 18px;">
         <div style="font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:#9aa3b2;font-weight:700;"><?= $this->escape($c[0]) ?></div>
